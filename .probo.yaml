@@ -1,17 +1,21 @@
-image: proboci/ubuntu:18.04-php7.3
+type: lamp
+php: 8.4
+database: mariadb:11.4
 assets:
-  - drupal9.sql.gz
+  - drupal-example.sql.gz
+
 steps:
-  - name: Run composer install
-    command: "composer install --working-dir=$SRC_DIR"
-  - name: Probo site setup
+  - name: Install Drupal Based On Composer File
     plugin: Drupal
-    drupalVersion: 9
-    database: drupal9.sql.gz
+    drupalVersion: 11
+    database: drupal-example.sql.gz
     databaseGzipped: true
+    compsoer: true
+    redis: true
     clearCaches: false
     databaseUpdates: false
-    subDirectory: docroot
+    subDirectory: web
+    
   - name: Run database update
     command: "drush --root=$SRC_DIR/docroot/ updb -y"
   #- name: Sanitize database

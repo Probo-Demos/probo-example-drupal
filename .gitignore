@@ -8,6 +8,7 @@
 /.editorconfig
 /.gitattributes
 /docroot/sites/simpletest
+/vendor
 .DS_Store
 
 # Ignore sql dumps.
