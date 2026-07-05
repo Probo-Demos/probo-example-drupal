@@ -18,6 +18,7 @@ steps:
     clearCaches: false
     databaseUpdates: false
     subDirectory: web
+    configSyncDirectory: ../config/sync
     
   - name: Run database update
     command: "drush --root=$SRC_DIR/docroot/ updb -y"
