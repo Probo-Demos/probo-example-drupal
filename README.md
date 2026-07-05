@@ -24,24 +24,6 @@ only the injected variables remain.
 
 The example database for this example can be downloaded (here)[https://probosupportfiles.blob.core.windows.net/utils/drupal-example.sql.gz] - be sure to place the .sql.gz file in your assets if you are trying to build it on your own Probo.CI account.
 
-
-## Project layout
-
-```
-.probo.yaml                       Probo build config (type: lamp + Drupal plugin)
-composer.json                     Drupal 11 project (drupal/recommended-project)
-docker-compose.yml                Local stack (Drupal container + MariaDB)
-web/                              Drupal docroot
-  modules/custom/probo_environment/
-    probo_environment.info.yml    Module definition
-    probo_environment.routing.yml Route: /probo-environment (public)
-    probo_environment.libraries.yml  CSS library
-    probo_environment.module      hook_theme()
-    src/Controller/ProboEnvironmentController.php  Env read/filter/partition
-    templates/probo-environment.html.twig          Page markup (two tables)
-    css/probo-environment.css     Scoped page styles
-```
-
 ## Run locally
 
 ```bash
