@@ -1,6 +1,9 @@
 type: lamp
 php: 8.4
 database: mariadb:11.4
+
+# The sample database can be obtained at:
+# https://probosupportfiles.blob.core.windows.net/utils/drupal-example.sql.gz
 assets:
   - drupal-example.sql.gz
 
@@ -10,7 +13,7 @@ steps:
     drupalVersion: 11
     database: drupal-example.sql.gz
     databaseGzipped: true
-    compsoer: true
+    composer: true
     redis: true
     clearCaches: false
     databaseUpdates: false
@@ -18,13 +21,9 @@ steps:
     
   - name: Run database update
     command: "drush --root=$SRC_DIR/docroot/ updb -y"
-  #- name: Sanitize database
-  #  command: "drush --root=$SRC_DIR/docroot/ sqlsan -y"
-  ##- name: Import config
-  ##  command: "drush --root=$SRC_DIR/docroot/ cim --source=$SRC_DIR/config/default -y"
+  - name: Import config
+    command: "drush --root=$SRC_DIR/docroot/ cim --source=$SRC_DIR/config/default -y"
   - name: Fix file permissions
     command: 'mkdir $SRC_DIR/docroot/sites/default/files/private && chown -R www-data:www-data $SRC_DIR/docroot/sites/default/files'
-  #- name: Enable stage file proxy
-  #  command: "drush --root=$SRC_DIR/docroot/ en stage_file_proxy -y && drush --root=$SRC_DIR/docroot/ cset stage_file_proxy.settings origin https://example.com -y"
   - name: Cache clear
     command: "drush --root=$SRC_DIR/docroot/ cr"

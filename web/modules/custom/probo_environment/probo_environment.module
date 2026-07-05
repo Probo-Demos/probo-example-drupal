@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Probo Environment Demo module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function probo_environment_theme($existing, $type, $theme, $path) {
+  return [
+    'probo_environment' => [
+      'variables' => [
+        'in_probo' => FALSE,
+        'drupal_version' => '',
+        'php_version' => '',
+        'build_vars' => [],
+        'other_vars' => [],
+      ],
+    ],
+  ];
+}

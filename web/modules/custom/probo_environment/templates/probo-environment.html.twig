@@ -1,0 +1,113 @@
+{#
+/**
+ * @file
+ * Probo build-environment demo page.
+ *
+ * Available variables:
+ * - in_probo: TRUE when PROBO_ENVIRONMENT === 'TRUE'.
+ * - drupal_version: The running Drupal core version string.
+ * - php_version: The running PHP version string.
+ * - build_vars: Documented Probo build variables (name, value, present, description).
+ * - other_vars: Dynamically discovered secrets/custom variables (name, value).
+ */
+#}
+<div class="probo-env">
+
+  <section class="probo-env__hero">
+    <div class="probo-env__badge">&#x1F4E6; Probo CI &mdash; Drupal {{ drupal_version }}</div>
+    <h1 class="probo-env__title">Build <span>environment</span> variables</h1>
+    <p class="probo-env__subtitle">
+      Live values injected by Probo CI into this build container.
+      Variables are populated when a pull request triggers a build.
+    </p>
+  </section>
+
+  <div class="probo-env__status-bar">
+    <div class="probo-env__status-pill {{ in_probo ? 'is-active' : 'is-inactive' }}">
+      <span class="probo-env__dot"></span>
+      {{ in_probo
+        ? 'Running inside a Probo build container'
+        : 'Not running in a Probo environment' }}
+    </div>
+  </div>
+
+  <div class="probo-env__version-card">
+    <div class="probo-env__version-inner">
+      <div class="probo-env__version-logo">&#x1F4A7;</div>
+      <div class="probo-env__version-text">
+        <div class="probo-env__version-label">Drupal Version</div>
+        <div class="probo-env__version-number">{{ drupal_version }}</div>
+        <div class="probo-env__version-full">PHP {{ php_version }}</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="probo-env__section">
+    <h2 class="probo-env__section-title">Build variables</h2>
+    <p class="probo-env__desc" style="margin-bottom:1.25rem;">
+      Documented variables Probo injects for every build. Values shown are read
+      live from the environment the site can see &mdash; the same set exposed by
+      the container's <code>envvars-swap.sh</code>.
+    </p>
+    <table class="probo-env__table">
+      <thead>
+        <tr>
+          <th style="width:22%">Variable</th>
+          <th style="width:28%">Value</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for var in build_vars %}
+        <tr>
+          <td><span class="probo-env__var-name">${{ var.name }}</span></td>
+          <td>
+            {% if var.present and var.value != '' %}
+              <span class="probo-env__var-value is-set">{{ var.value }}</span>
+            {% else %}
+              <span class="probo-env__var-value is-unset">not set</span>
+            {% endif %}
+          </td>
+          <td class="probo-env__desc">{{ var.description|raw }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="probo-env__section">
+    <h2 class="probo-env__section-title">Secrets &amp; other injected variables</h2>
+    <p class="probo-env__desc" style="margin-bottom:1.25rem;">
+      Everything else Probo made visible to the site: organization and project
+      secrets plus any custom variables. Discovered dynamically from the
+      container environment &mdash; there is no fixed list.
+    </p>
+    {% if other_vars is empty %}
+      <p class="probo-env__var-value is-unset">No additional variables are exposed in this environment.</p>
+    {% else %}
+    <table class="probo-env__table">
+      <thead>
+        <tr>
+          <th style="width:35%">Variable</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for var in other_vars %}
+        <tr>
+          <td><span class="probo-env__var-name">${{ var.name }}</span></td>
+          <td>
+            {% if var.value != '' %}
+              <span class="probo-env__var-value is-set">{{ var.value }}</span>
+            {% else %}
+              <span class="probo-env__var-value is-unset">empty</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </section>
+
+</div>

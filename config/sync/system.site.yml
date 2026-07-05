@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
+langcode: en
+uuid: 9cd13f1f-1a0c-4c68-ab5c-0e4f053576d9
+name: 'Drupal 11 Demonstration Probo Site'
+mail: test@example.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /probo-environment
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

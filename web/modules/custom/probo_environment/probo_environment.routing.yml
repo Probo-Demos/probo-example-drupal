@@ -1,0 +1,9 @@
+probo_environment.page:
+  path: '/probo-environment'
+  defaults:
+    _controller: '\Drupal\probo_environment\Controller\ProboEnvironmentController::page'
+    _title: 'Probo environment'
+  requirements:
+    # Public demo page: visible without any permission so it works out of the
+    # box in a fresh Probo preview environment.
+    _access: 'TRUE'

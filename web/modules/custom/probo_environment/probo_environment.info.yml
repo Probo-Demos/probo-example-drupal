@@ -1,0 +1,5 @@
+name: 'Probo Environment Demo'
+type: module
+description: 'Displays the environment variables Probo CI injects into the build container as two tables: documented build variables and dynamically discovered secrets/custom variables.'
+package: 'Probo'
+core_version_requirement: ^10 || ^11
