@@ -21,10 +21,13 @@ steps:
     configSyncDirectory: ../config/sync
     
   - name: Run database update
-    command: "drush --root=$SRC_DIR/docroot/ updb -y"
+    command: "drush --root=/var/www/html updb -y"
+
   - name: Import config
-    command: "drush --root=$SRC_DIR/docroot/ cim --source=$SRC_DIR/config/default -y"
+    command: "drush --root=/var/www/html cim -y"
+  
   - name: Fix file permissions
-    command: 'mkdir $SRC_DIR/docroot/sites/default/files/private && chown -R www-data:www-data $SRC_DIR/docroot/sites/default/files'
+    command: 'mkdir $SRC_DIR/web/sites/default/files/private && chown -R www-data:www-data $SRC_DIR/web/sites/default/files'
+  
   - name: Cache clear
-    command: "drush --root=$SRC_DIR/docroot/ cr"
+    command: "drush --root=/var/www/html cr"
